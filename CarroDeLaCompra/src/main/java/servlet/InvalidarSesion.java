@@ -27,9 +27,11 @@ public class InvalidarSesion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sesion = request.getSession();
+		//Comprobacion de que se ha iniciado sesion
 		if (sesion.isNew() || sesion == null || sesion.getAttribute("usuario")==null) {
 			response.sendRedirect("/CarroDeLaCompra/HTML/Login.jsp");
 		}
+		//Si ha accedido de forma correcta se invalida la sesion y se le redirecciona al login
 		else {
 			sesion.invalidate();
 			response.sendRedirect("/CarroDeLaCompra/HTML/Login.jsp");

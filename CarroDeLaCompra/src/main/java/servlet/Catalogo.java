@@ -16,7 +16,10 @@ public class Catalogo {
 		this.listaProductos.put("Botines", 22.00);
 	}
 
-
+	/**
+	 * 
+	 * @return HashMap con productos
+	 */
 	public HashMap<String,Double> getListaProductos() {
 		return listaProductos;
 	}

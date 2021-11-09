@@ -43,11 +43,13 @@ public class CatalogoServlet extends HttpServlet {
 		
 		//Creamos el objeto catalogo
 		Catalogo c =  new Catalogo();
-		
+		//Recuperamos el array de productos del catalogo y creamos un stringbuilder para guardar el texto que vamos a mostrar en el html
 		HashMap <String,Double> lista = c.getListaProductos();
 		StringBuilder htmlListaProductos = new StringBuilder();
+		//Obtenemos el set de keys del hasmap
 		Set <String> listaKeys = lista.keySet();
 		
+		//Recorremos las keys y vamos añadiendo al Stringbuilder toda la informacion de productos
 		for (String key : listaKeys) {
 			String nombreProducto = key;
 			Double precioProducto = lista.get(key);
@@ -60,7 +62,7 @@ public class CatalogoServlet extends HttpServlet {
 		}
 		
 
-		
+		//Comprobacion de que se ha iniciado sesion
 		if (request.getParameter("usuario") == null && sesion.getAttribute("usuario") == null) {
 			response.sendRedirect("/CarroDeLaCompra/HTML/Login.jsp");
 		}

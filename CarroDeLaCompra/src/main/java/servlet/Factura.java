@@ -32,25 +32,29 @@ public class Factura extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession sesion = request.getSession();
 		
-		
+		//Comprobacion de que se ha iniciado sesion
 		if (sesion.isNew() || sesion == null || sesion.getAttribute("usuario")==null) {
 			response.sendRedirect("/CarroDeLaCompra/HTML/Login.jsp");
 		}
 		else {
+			//Creamos un stringbuilder y le añadimos los datos de los productos que pasamos por la sesion.
 			StringBuilder htmlResumen = new StringBuilder(sesion.getAttribute("Resumen").toString());
 			
-			//Obtenemos el envio que ha seleccionado el usuario
+			//Obtenemos el tipo de envio que ha seleccionado el usuario
 			String envio = request.getParameter("envio");
 			int precioEnvio;
+			//Calculamos el iva de la suma de los precios de los productos comprados
 			Double totalPagar = (Double) sesion.getAttribute("TotalPagar") * 1.21;
-			//Vemos que tipo de envio es y le aÃ±adimos el precio correspondiente
+			//Vemos que tipo de envio es y le añadimos el precio correspondiente
 			if(envio.equals("Estandar")) {
 				precioEnvio = 2;
 			}
 			else {
 				precioEnvio = 5;
 			}
+			//Calculamos la cantidad total que tiene que pagar el usuario
 			Double precioFinalFactura = totalPagar + precioEnvio;
+			//Escribimos el html con toda la informacion de la factura
 			out.write("<!DOCTYPE html>\n"
 					+ "<html lang=\"en\">\n"
 					+ "<head>\n"
